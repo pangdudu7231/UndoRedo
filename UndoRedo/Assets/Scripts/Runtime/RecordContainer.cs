@@ -152,13 +152,13 @@ namespace SimpleCore.UndoRedoes
             RemoveRecord(removeStartIndex, removeCount);
             //添加新的操作
             _stack.Add(record);
-            if (CanAdd(_limit, _stack.Count)) RemoveRecord(0, 1); //超出限制的长度，删除第一个事件
+            if (!CanAdd(_limit, _stack.Count)) RemoveRecord(0, 1); //超出限制的长度，删除第一个事件
             _stackPointer = _stack.Count - 1;
 
             //判断是否可以添加新的记录
             bool CanAdd(int p_limit, int p_stackCount)
             {
-                return p_limit < 0 || p_stackCount > p_limit;
+                return p_limit < 0 || p_stackCount < p_limit;
             }
         }
 
